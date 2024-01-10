@@ -12,6 +12,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { HeroComponent } from './shared/components/hero/hero.component';
 import { FeaturedSectionComponent } from './shared/components/featured-section/featured-section.component';
 import { CtaComponent } from './shared/components/cta/cta.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,9 @@ import { CtaComponent } from './shared/components/cta/cta.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive
   ],
   providers: [],
   bootstrap: [AppComponent]
