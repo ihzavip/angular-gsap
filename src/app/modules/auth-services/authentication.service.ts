@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
   constructor(
     private http: HttpClient,
   ) { }
@@ -18,6 +17,10 @@ export class AuthenticationService {
   }
 
   createUser(user: any): Observable<any> {
-    return this.http.post(`${this.url}/register`, user)
+    return this.http.post(`${this.url}/register`, user);
+  }
+
+  login(user: any): Observable<any> {
+    return this.http.post(`${this.url}/login`, user);
   }
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthenticationService } from '../auth-services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,19 +11,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
 
   constructor(
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService,
+    private router: Router,
+  ) { }
 
   loginForm = this.formBuilder.group({
-    firstName: ['', [ Validators.required, Validators.min(7) ]],
-    lastName: [''],
     email: ['', Validators.email],
     password: ['', Validators.required],
-    passwordConfirmation: ['', Validators.required]
   })
 
-  register() {
+  login() {
     console.log(this.loginForm.value);
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (v) => {
+        console.log("response data", v)
+        if (v.success) {
+          localStorage.setItem("token", v.token);
+          this.router.navigateByUrl("/")
+        }
+      },
+      error: (e) => console.log(e),
+      complete: () => console.log("complete")
+    });
   }
 
 }

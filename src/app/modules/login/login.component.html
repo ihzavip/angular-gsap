@@ -17,12 +17,13 @@
       </p>
     </div>
 
-    <form action="" class="max-w-md mx-auto mt-8 mb-0 space-y-4">
+    <form [formGroup]="loginForm" class="max-w-md mx-auto mt-8 mb-0 space-y-4">
       <div>
         <label for="email" class="sr-only">Email</label>
 
         <div class="relative">
           <input
+            formControlName="email"
             type="email"
             class="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm pe-12"
             placeholder="Enter email"
@@ -52,6 +53,7 @@
 
         <div class="relative">
           <input
+            formControlName="password"
             type="password"
             class="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm pe-12"
             placeholder="Enter password"
@@ -89,7 +91,7 @@
         </p>
 
         <button
-          type="submit"
+          (click)="login()"
           class="inline-block px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg"
         >
           Sign in
