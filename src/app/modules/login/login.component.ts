@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../auth-services/authentication.service';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,15 @@ export class LoginComponent {
   ) { }
 
   loginForm = this.formBuilder.group({
-    email: ['', Validators.email],
+    email: ['', [ Validators.required ,Validators.email ]],
     password: ['', Validators.required],
   })
 
   login() {
-    console.log(this.loginForm.value);
-    this.authService.login(this.loginForm.value).subscribe({
+    console.log(this.loginForm);
+    this.authService.login(this.loginForm.value).pipe(
+      finalize(() => console.log("done"))
+    ).subscribe({
       next: (v) => {
         console.log("response data", v)
         if (v.success) {
